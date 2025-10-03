@@ -15,38 +15,38 @@ export default function Home() {
     e.preventDefault();
     if (!text.trim()) return;
     setLoading(true);
-    // Пока заглушка. Позже подключим ИИ и/или Supabase.
+    // Заглушка генерации
     setTimeout(() => {
       setResult({
         interp:
-          "Сон намекает на внутренние перемены и скрытую тревогу. Обрати внимание на мелкие детали дня — они складываются в общий знак.",
+          "Сон намекает на внутренние перемены и скрытую тревогу. Замечай мелочи — они складываются в знак.",
         story:
-          "Туман стелился по полу, как вода. Ты шёл босиком и слышал, как тихо звенит стекло где-то в глубине коридора. За поворотом — тёплый свет, от которого сердце билось ровнее. Ты сделал шаг — и понял, что это твой собственный дом, только из будущего.",
+          "Туман стелился по полу, как вода. Ты шёл босиком и слышал, как звенит стекло в глубине коридора. За поворотом — тёплый свет. Сердце билось ровнее: это был твой дом из будущего.",
       });
       setLoading(false);
-    }, 800);
+    }, 700);
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
+    <main className="mx-auto max-w-5xl px-6 py-10">
       {/* Шапка */}
       <header className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-9 w-9 rounded-xl bg-indigo-500/90 shadow-lg shadow-indigo-500/40" />
+          <div className="h-10 w-10 rounded-2xl bg-indigo-500/90 shadow-lg shadow-indigo-500/40" />
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">Сонник XXI</h1>
-            <p className="text-sm text-slate-400">Опиши сон — получи толкование и мини-историю</p>
+            <h1 className="text-3xl font-bold tracking-tight">Сонник XXI</h1>
+            <p className="text-sm text-slate-300">Опиши сон — получи толкование и мини-историю</p>
           </div>
         </div>
         <a
           href="#try"
-          className="rounded-xl border border-indigo-400/30 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-indigo-200 hover:bg-indigo-500/20"
+          className="rounded-xl border border-indigo-400/30 bg-indigo-500/10 px-4 py-2 text-sm font-medium text-indigo-100 hover:bg-indigo-500/20"
         >
           Попробовать
         </a>
       </header>
 
-      {/* Карточка с формой */}
+      {/* Карточка формы */}
       <section
         id="try"
         className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-md"
@@ -58,13 +58,13 @@ export default function Home() {
               <button
                 key={s}
                 onClick={() => setChosen(s)}
+                type="button"
                 className={
-                  "rounded-full border px-3 py-1 text-sm " +
+                  "rounded-full border px-3 py-1 text-sm transition " +
                   (chosen === s
                     ? "border-indigo-400 bg-indigo-500/20 text-indigo-100"
                     : "border-white/15 bg-white/5 text-slate-300 hover:bg-white/10")
                 }
-                type="button"
               >
                 {s}
               </button>
@@ -82,46 +82,3 @@ export default function Home() {
           />
           <div className="flex items-center justify-between">
             <div className="text-xs text-slate-400">
-              Подсказка: укажи место, людей и эмоции. Выбранный стиль: <b>{chosen}</b>.
-            </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="rounded-xl border border-indigo-400/40 bg-indigo-500/20 px-5 py-2 text-sm font-semibold text-indigo-100 hover:bg-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {loading ? "Генерирую…" : "Сгенерировать"}
-            </button>
-          </div>
-        </form>
-      </section>
-
-      {/* Результат */}
-      {result && (
-        <section className="mt-8 grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-            <h3 className="mb-2 text-lg font-semibold">Толкование</h3>
-            <p className="leading-relaxed text-slate-200">{result.interp}</p>
-            <div className="mt-3 flex gap-2">
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-300">
-                символы
-              </span>
-              <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-slate-300">
-                эмоции
-              </span>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-            <h3 className="mb-2 text-lg font-semibold">История</h3>
-            <p className="leading-relaxed text-slate-200">{result.story}</p>
-          </div>
-        </section>
-      )}
-
-      {/* Низ страницы */}
-      <footer className="mt-10 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} Сонник XXI — личный проект. Скоро: аккаунты, база снов и картинки.
-      </footer>
-    </main>
-  );
-}
